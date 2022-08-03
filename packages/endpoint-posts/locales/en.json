@@ -1,11 +1,70 @@
 {
   "posts": {
     "post": {
-      "properties": "Properties"
+      "bookmark-of": {
+        "label": "Bookmark URL"
+      },
+      "category": {
+        "label": "Category"
+      },
+      "content": {
+        "label": "Content"
+      },
+      "end": {
+        "label": "End date"
+      },
+      "in-reply-to": {
+        "label": "In reply to URL"
+      },
+      "like-of": {
+        "label": "Liked URL"
+      },
+      "mp-slug": {
+        "label": "Slug"
+      },
+      "mp-syndicate-to": {
+        "label": "Syndication targets"
+      },
+      "name": {
+        "label": "Title"
+      },
+      "post-status": {
+        "draft": "Draft",
+        "label": "Status"
+      },
+      "properties": "Properties",
+      "published": {
+        "label": "Published"
+      },
+      "repost-of": {
+        "label": "Reposted URL"
+      },
+      "start": {
+        "label": "Start date"
+      },
+      "rsvp": {
+        "label": "RSVP",
+        "interested": "Interested",
+        "maybe": "Maybe",
+        "no": "No",
+        "yes": "Yes"
+      },
+      "summary": {
+        "label": "Summary"
+      },
+      "visibility": {
+        "label": "Visibility",
+        "private": "Private",
+        "public": "Public",
+        "unlisted": "Unlisted"
+      }
     },
     "posts": {
       "title": "Published posts",
       "none": "No posts"
+    },
+    "edit": {
+      "title": "Edit post"
     },
     "title": "Posts"
   }

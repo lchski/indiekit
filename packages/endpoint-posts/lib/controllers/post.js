@@ -1,7 +1,4 @@
-import { Buffer } from "node:buffer";
-import { IndiekitError } from "@indiekit/error";
-import { mf2tojf2 } from "@paulrobertlloyd/mf2tojf2";
-import { fetch } from "undici";
+import { getPostData } from "../utils/post-data.js";
 
 /**
  * View previously published post
@@ -13,32 +10,10 @@ import { fetch } from "undici";
  */
 export const postController = async (request, response, next) => {
   try {
-    const { publication } = request.app.locals;
+    const accessToken = request.session.access_token;
+    const { micropubEndpoint } = request.app.locals.publication;
     const { id } = request.params;
-    const url = Buffer.from(id, "base64").toString("utf8");
-
-    const parameters = new URLSearchParams({
-      q: "source",
-      url,
-    }).toString();
-
-    const endpointResponse = await fetch(
-      `${publication.micropubEndpoint}?${parameters}`,
-      {
-        headers: {
-          accept: "application/json",
-          // TODO: Third-party media endpoint may require a separate token
-          authorization: `Bearer ${request.session.access_token}`,
-        },
-      }
-    );
-
-    if (!endpointResponse.ok) {
-      throw await IndiekitError.fromFetch(endpointResponse);
-    }
-
-    const body = await endpointResponse.json();
-    const post = mf2tojf2(body);
+    const post = await getPostData(id, micropubEndpoint, accessToken);
 
     response.render("post", {
       title: post.name,

@@ -1,0 +1,227 @@
+{% extends "form.njk" %}
+
+{% set title = title or post["post-type"] | capitalize %}
+
+{% block fieldset %}
+  {{ input({
+    id: "name",
+    name: "name",
+    value: errors.name.value or post.name,
+    label: {
+      text: __("posts.post.name.label")
+    },
+    errorMessage: {
+      text: errors.name.msg
+    } if errors.name
+  }) }}
+
+  {{ textarea({
+    id: "summary",
+    name: "summary",
+    value: errors.summary.value or post.summary,
+    label: {
+      text: __("posts.post.summary.label")
+    },
+    rows: 1,
+    errorMessage: {
+      text: errors.summary.msg
+    } if errors.summary
+  }) }}
+
+  {{ input({
+    id: "category",
+    name: "category",
+    value: errors.category.value or post.category,
+    label: {
+      text: __("posts.post.category.label")
+    },
+    attributes: {
+      list: "categories"
+    } if categories,
+    errorMessage: {
+      text: errors.category.msg
+    } if errors.category
+  }) }}
+
+  {%- if categories -%}
+    <datalist id="categories">
+    {%- for category in categories %}
+      <option value="{{ category }}">
+    {%- endfor %}
+    </datalist>
+  {%- endif -%}
+
+  {{ input({
+    id: "published-local",
+    name: "published-local",
+    value: errors["published-local"].value or post["published-local"],
+    label: {
+      text: __("posts.post.published.label")
+    },
+    type: "datetime-local",
+    errorMessage: {
+      text: errors["published-local"].msg
+    } if errors["published-local"]
+  }) }}
+
+  {{ checkboxes({
+    idPrefix: "post-status",
+    name: "post-status",
+    fieldset: {
+      legend: {
+        text: __("posts.post.post-status.label")
+      }
+    },
+    items: [{
+      value: "true",
+      text: __("posts.post.post-status.draft"),
+      checked: errors.content.value or post.content.html
+    }],
+    errorMessage: {
+      text: errors["post-status"].msg
+    } if errors["post-status"]
+  }) }}
+
+  {{ radios({
+    classes: "radios--inline",
+    idPrefix: "visibility",
+    name: "visibility",
+    fieldset: {
+      legend: {
+        text: __("posts.post.visibility.label")
+      }
+    },
+    items: visibilityItems,
+    errorMessage: {
+      text: errors.visibility.msg
+    } if errors.visibility
+  }) }}
+
+  {{ input({
+    id: "mp-slug",
+    name: "mp-slug",
+    value: errors["mp-slug"].value or post["mp-slug"],
+    label: {
+      text: __("posts.post.mp-slug.label")
+    },
+    errorMessage: {
+      text: errors["mp-slug"].msg
+    } if errors["mp-slug"]
+  }) }}
+
+  {{ input({
+    id: "bookmark-of",
+    name: "bookmark-of",
+    value: errors["bookmark-of"].value or post["bookmark-of"],
+    label: {
+      text: __("posts.post.bookmark-of.label")
+    },
+    errorMessage: {
+      text: errors["bookmark-of"].msg
+    } if errors["bookmark-of"]
+  }) }}
+
+  {{ input({
+    id: "like-of",
+    name: "like-of",
+    value: errors["like-of"].value or post["like-of"],
+    label: {
+      text: __("posts.post.like-of.label")
+    },
+    errorMessage: {
+      text: errors["like-of"].msg
+    } if errors["like-of"]
+  }) }}
+
+  {{ input({
+    id: "repost-of",
+    name: "repost-of",
+    value: errors["repost-of"].value or post["repost-of"],
+    label: {
+      text: __("posts.post.repost-of.label")
+    },
+    errorMessage: {
+      text: errors["repost-of"].msg
+    } if errors["repost-of"]
+  }) }}
+
+  {{ input({
+    id: "in-reply-to",
+    name: "in-reply-to",
+    value: errors["in-reply-to"].value or post["in-reply-to"],
+    label: {
+      text: __("posts.post.in-reply-to.label")
+    },
+    errorMessage: {
+      text: errors["in-reply-to"].msg
+    } if errors["in-reply-to"]
+  }) }}
+
+  {{ textarea({
+    id: "content",
+    name: "content",
+    value: errors.content.value or post.content.text,
+    label: {
+      text: __("posts.post.content.label")
+    },
+    rows: 3,
+    errorMessage: {
+      text: errors.content.msg
+    } if errors.content
+  }) }}
+
+  {{ checkboxes({
+    idPrefix: "mp-syndicate-to",
+    name: "mp-syndicate-to",
+    fieldset: {
+      legend: {
+        text: __("posts.post.mp-syndicate-to.label")
+      }
+    },
+    items: targetItems,
+    errorMessage: {
+      text: errors["mp-syndicate-to"].msg
+    } if errors["mp-syndicate-to"]
+  }) }}
+
+  {{ input({
+    id: "start",
+    name: "start",
+    value: errors.start.value or post.start,
+    label: {
+      text: __("posts.post.start.label")
+    },
+    type: "datetime-local",
+    errorMessage: {
+      text: errors.start.msg
+    } if errors.start
+  }) }}
+
+  {{ input({
+    id: "end",
+    name: "end",
+    value: errors.end.value or post.end,
+    label: {
+      text: __("posts.post.end.label")
+    },
+    type: "datetime-local",
+    errorMessage: {
+      text: errors.end.msg
+    } if errors.end
+  }) }}
+
+  {{ radios({
+    classes: "radios--inline",
+    idPrefix: "rsvp",
+    name: "rsvp",
+    fieldset: {
+      legend: {
+        text: __("posts.post.rsvp.label")
+      }
+    },
+    items: rsvpItems,
+    errorMessage: {
+      text: errors.rsvp.msg
+    } if errors.rsvp
+  }) }}
+{% endblock %}
